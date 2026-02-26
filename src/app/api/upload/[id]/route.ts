@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { deleteUploadRecord } from "@/lib/supabase";
 import type { DeleteSuccessResponse, ErrorResponse } from "@/types";
 
+export const dynamic = "force-dynamic";
+
 export async function DELETE(
     request: NextRequest,
     { params }: { params: Promise<{ id: string }> }
