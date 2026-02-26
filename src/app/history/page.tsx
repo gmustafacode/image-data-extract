@@ -41,7 +41,7 @@ export default function HistoryPage() {
 
         setDeletingId(id);
         try {
-            const response = await fetch(`/api/upload/${id}`, {
+            const response = await fetch(`/api/delete?id=${id}`, {
                 method: "DELETE",
             });
 

@@ -2,14 +2,19 @@ import { NextRequest, NextResponse } from "next/server";
 import { deleteUploadRecord } from "@/lib/supabase";
 import type { DeleteSuccessResponse, ErrorResponse } from "@/types";
 
-export const dynamic = "force-dynamic";
-
 export async function DELETE(
-    request: NextRequest,
-    { params }: { params: Promise<{ id: string }> }
+    request: NextRequest
 ): Promise<NextResponse<DeleteSuccessResponse | ErrorResponse>> {
     try {
-        const { id } = await params;
+        const { searchParams } = new URL(request.url);
+        const id = searchParams.get("id");
+
+        if (!id) {
+            return NextResponse.json(
+                { success: false, error: "Missing 'id' query parameter." },
+                { status: 400 }
+            );
+        }
 
         await deleteUploadRecord(id);
 
